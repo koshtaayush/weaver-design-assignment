@@ -1,0 +1,187 @@
+/* Figma-inspired Canvas Styles */
+
+/* Root variables for consistent theming */
+:root {
+  --figma-bg: #1e1e1e;
+  --figma-surface: #2c2c2c;
+  --figma-surface-hover: #3c3c3c;
+  --figma-border: #404040;
+  --figma-text: #ffffff;
+  --figma-text-muted: #b3b3b3;
+  --figma-accent: #0d99ff;
+  --figma-accent-hover: #0d85e0;
+  --figma-selection: #18a0fb;
+  --figma-selection-bg: rgba(24, 160, 251, 0.15);
+  --figma-danger: #f24822;
+  --figma-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --figma-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --figma-radius: 6px;
+  --figma-radius-small: 4px;
+}
+
+/* Global styles - apply to body or main container */
+body {
+  background: var(--figma-bg);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Toolbar Styles - targeting the existing toolbar structure */
+div[style*="position: absolute"][style*="top: 10"][style*="left: 10"] {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--figma-surface);
+  border: 1px solid var(--figma-border);
+  border-radius: var(--figma-radius);
+  box-shadow: var(--figma-shadow);
+}
+
+/* Toolbar buttons */
+div[style*="position: absolute"][style*="top: 10"][style*="left: 10"] button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--figma-radius-small);
+  color: var(--figma-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+div[style*="position: absolute"][style*="top: 10"][style*="left: 10"]
+  button:hover {
+  background: var(--figma-surface-hover);
+  border-color: var(--figma-border);
+}
+
+div[style*="position: absolute"][style*="top: 10"][style*="left: 10"]
+  button:active {
+  transform: translateY(1px);
+}
+
+/* Rectangle Styles - targeting only canvas rectangles, not minimap */
+div[style*="position: absolute"][style*="backgroundColor"][style*="pointerEvents: auto"] {
+  border: 2px solid var(--figma-selection) !important;
+  background: var(--figma-selection-bg) !important;
+  border-radius: 2px;
+  transition: all 0.1s ease;
+  cursor: move;
+}
+
+div[style*="position: absolute"][style*="backgroundColor"][style*="pointerEvents: auto"]:hover {
+  border-color: var(--figma-accent-hover) !important;
+  box-shadow: 0 0 0 1px var(--figma-accent-hover);
+}
+
+/* Selected rectangles - targeting only canvas rectangles with selected color */
+div[style*="rgba(255, 0, 0, 0.5)"][style*="pointerEvents: auto"] {
+  border-color: var(--figma-danger) !important;
+  background: rgba(242, 72, 34, 0.15) !important;
+  box-shadow: 0 0 0 1px var(--figma-danger);
+}
+
+/* Rectangle dimension labels - targeting the dimension display */
+div[style*="position: absolute"][style*="top: -16"][style*="fontSize: 10"] {
+  padding: 4px 8px !important;
+  background: var(--figma-surface) !important;
+  border: 1px solid var(--figma-border) !important;
+  border-radius: var(--figma-radius-small) !important;
+  color: var(--figma-text) !important;
+  font-size: 11px !important;
+  font-weight: 500;
+  box-shadow: var(--figma-shadow);
+  z-index: 10;
+}
+
+/* Tooltip Styles - targeting the tooltip */
+div[style*="position: absolute"][style*="backgroundColor: rgba(0,0,0,0.7)"] {
+  padding: 6px 10px !important;
+  background: var(--figma-surface) !important;
+  border: 1px solid var(--figma-border) !important;
+  border-radius: var(--figma-radius-small) !important;
+  color: var(--figma-text) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+  box-shadow: var(--figma-shadow);
+  backdrop-filter: blur(8px);
+}
+
+/* Canvas Layer Styles - targeting only the main canvas transform div with specific dimensions */
+div[style*="position: absolute"][style*="transform"][style*="translate"][style*="scale"][style*="10000px"] {
+  /* Grid pattern background */
+  background-image: radial-gradient(
+    circle,
+    var(--figma-border) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  background-position: 0 0;
+}
+
+/* Minimap specific styles - add proper minimap styling */
+.minimap-container,
+div[style*="width: 200px"][style*="height: 200px"] {
+  background: var(--figma-surface) !important;
+  border: 1px solid var(--figma-border) !important;
+  border-radius: var(--figma-radius);
+  box-shadow: var(--figma-shadow);
+  overflow: hidden;
+}
+
+/* Minimap rectangles - small rectangles inside minimap */
+.minimap-container div[style*="position: absolute"],
+div[style*="width: 200px"]
+  div[style*="position: absolute"][style*="backgroundColor"] {
+  background: var(--figma-accent) !important;
+  border: none !important;
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* Add some general canvas container styling */
+canvas,
+div[style*="width: 100vw"],
+div[style*="height: 100vh"] {
+  background: var(--figma-bg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  div[style*="position: absolute"][style*="top: 10"][style*="left: 10"] {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  div[style*="position: absolute"][style*="top: 10"][style*="left: 10"] button {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --figma-bg: #000000;
+    --figma-surface: #1a1a1a;
+    --figma-border: #666666;
+    --figma-text: #ffffff;
+    --figma-accent: #00aaff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
